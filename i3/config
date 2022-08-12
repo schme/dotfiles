@@ -3,7 +3,11 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+include config.d/*.conf
+
 set $mod Mod4
+
+set $wallpaper red_moon.jpeg
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -12,6 +16,8 @@ font pango:DejaVu Sans Mono 10
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
+
+exec --no-startup-id wal -i $wallpaper
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -22,7 +28,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-#exec --no-startup-id nm-applet
+exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -33,16 +39,6 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
-
-# start a terminal
-bindsym $mod+Return exec --no-startup-id /usr/bin/x-terminal-emulator
-
-# start a browser
-bindsym $mod+Shift+Return exec --no-startup-id gtk-launch $(xdg-settings get default-web-browser)
-
-# start a file browser
-bindsym $mod+Shift+n exec --no-startup-id nautilus --new-window
-
 
 # kill focused window
 bindsym $mod+Shift+q kill
