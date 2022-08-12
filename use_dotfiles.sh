@@ -25,3 +25,6 @@ ln -si $(pwd)/polybar/config.ini ~/.config/polybar/config.ini
 
 # redshift
 ln -si $(pwd)/redshift/redshift.conf ~/.config/redshift.conf
+
+# awesome
+ln -si $(pwd)/awesome/rc.lua ~/.config/awesome/rc.lua

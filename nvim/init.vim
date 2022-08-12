@@ -136,15 +136,11 @@ let g:glsl_file_extensions = '*.glsl,*.vsh,*.fsh,*.vert,*.tesc,*.tese,*.geom,*.f
 " General mapedings
 inoremap kj <esc>
 nnoremap gj J
-nnoremap K {
-nnoremap J }
+nnoremap <c-k> {
+nnoremap <c-j> }
 vnoremap gj J
-vnoremap K {
-vnoremap J }
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-nnoremap <c-j> <C-w>j
-nnoremap <c-k> <C-w>k
+vnoremap <c-k> {
+vnoremap <c-j> }
 nnoremap H 0
 nnoremap L $
 
