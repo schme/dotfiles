@@ -14,19 +14,23 @@ ln -si $(pwd)/Xresources/.Xresources ~/.Xresources
 rm -ri ~/.config/i3
 ln -si $(pwd)/i3 ~/.config/
 
+mkdir -p ~/.config/i3status
+ln -si $(pwd)/i3status/i3status.conf ~/.config/i3status/conf
+
 # alacritty
 mkdir -p ~/.config/alacritty/
 ln -si $(pwd)/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
+
+# redshift
+cp $(pwd)/redshift/redshift.conf ~/.config/redshift.conf
+
+# picom
+ln -si $(pwd)/picom/picom.conf ~/.config/picom/picom.conf
+
+# awesome
+# ln -si $(pwd)/awesome/rc.lua ~/.config/awesome/rc.lua
 
 # polybar
 # mkdir -p ~/.config/polybar/
 # ln -si $(pwd)/polybar/config.ini ~/.config/polybar/config.ini
 
-# redshift
-cp $(pwd)/redshift/redshift.conf ~/.config/redshift.conf
-
-# awesome
-# ln -si $(pwd)/awesome/rc.lua ~/.config/awesome/rc.lua
-
-# picom
-ln -si $(pwd)/picom/picom.conf ~/.config/picom/picom.conf

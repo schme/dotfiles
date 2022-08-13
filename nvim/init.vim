@@ -42,6 +42,7 @@ call plug#end()
 
 set background=dark
 "colorscheme PaperColor
+"colorscheme gotham
 
 let $LANG = 'en'
 
@@ -181,7 +182,6 @@ nnoremap ö :
 nnoremap <F1> :vsplit $MYVIMRC<cr>
 
 nnoremap <F2> :RustFmt<cr>
-
 nnoremap <F4> :call CheckProgram()<cr>
 nnoremap <F5> :call RunProgram()<cr><cr>
 

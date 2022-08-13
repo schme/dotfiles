@@ -7,8 +7,6 @@ include config.d/*.conf
 
 set $mod Mod4
 
-set $wallpaper red_moon.jpeg
-
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 font pango:DejaVu Sans Mono 10
@@ -17,7 +15,8 @@ font pango:DejaVu Sans Mono 10
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
-exec --no-startup-id wal -i $wallpaper
+exec --no-startup-id wal -R
+exec --no-startup-id picom
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -167,7 +166,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-for_window [class=".*"] border pixel 0
+for_window [class=".*"] border pixel 2
 for_window [class="floating_window"] floating enable
 
 # Gaps config
@@ -302,7 +301,7 @@ mode "$mode_gaps_left" {
 
 # finds out, if available)
 bar {
-        status_command i3status
+        status_command i3status --config ~/.config/i3status/conf
 }
 
 ###############
