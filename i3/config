@@ -9,7 +9,7 @@ set $mod Mod4
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 10
+font pango:DejaVu Sans Mono 12
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
@@ -326,10 +326,11 @@ bar {
 
         background $background
         statusline $foreground
+        separator $color9
 
-        focused_workspace  $background $color2 #000000
+        focused_workspace  $background $color2 #050505
         active_workspace   $background $color2 $foreground
-        inactive_workspace $background $color9 $foreground
+        inactive_workspace $background $color4 #foreground
         urgent_workspace   #2F343A #900000 $foreground
         binding_mode       #2F343A #900000 $foreground
     }
