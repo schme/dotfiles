@@ -27,6 +27,10 @@ cp $(pwd)/redshift/redshift.conf ~/.config/redshift.conf
 # picom
 ln -si $(pwd)/picom/picom.conf ~/.config/picom/picom.conf
 
+# rofi
+mkdir -p ~/.config/rofi/
+ln -si $(pwd)/rofi/config.rasi ~/.config/rofi/config.rasi
+
 # awesome
 # ln -si $(pwd)/awesome/rc.lua ~/.config/awesome/rc.lua
 

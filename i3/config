@@ -301,7 +301,38 @@ mode "$mode_gaps_left" {
 
 # finds out, if available)
 bar {
-        status_command i3status --config ~/.config/i3status/conf
+    status_command i3status --config ~/.config/i3status/conf
+    colors {
+
+        set_from_resource $foreground i3wm.foreground
+        set_from_resource $background i3wm.background
+
+        set_from_resource $color0 i3wm.color0
+        set_from_resource $color1 i3wm.color1
+        set_from_resource $color2 i3wm.color2
+        set_from_resource $color3 i3wm.color3
+        set_from_resource $color4 i3wm.color4
+        set_from_resource $color5 i3wm.color5
+        set_from_resource $color6 i3wm.color6
+        set_from_resource $color7 i3wm.color7
+        set_from_resource $color8 i3wm.color8
+        set_from_resource $color9 i3wm.color9
+        set_from_resource $color10 i3wm.color10
+        set_from_resource $color11 i3wm.color11
+        set_from_resource $color12 i3wm.color12
+        set_from_resource $color13 i3wm.color13
+        set_from_resource $color14 i3wm.color14
+        set_from_resource $color15 i3wm.color15
+
+        background $background
+        statusline $foreground
+
+        focused_workspace  $background $color2 #000000
+        active_workspace   $background $color2 $foreground
+        inactive_workspace $background $color9 $foreground
+        urgent_workspace   #2F343A #900000 $foreground
+        binding_mode       #2F343A #900000 $foreground
+    }
 }
 
 ###############
