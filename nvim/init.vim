@@ -36,7 +36,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'wlangstroth/vim-racket'
 Plug 'Olical/conjure'
 Plug 'bakpakin/fennel.vim'
-Plug 'vim-scripts/paredit.vim'
+Plug 'schme/vim-paredit'
+Plug 'iamcco/coc-vimlsp'
 
 call plug#end()
 
@@ -116,7 +117,7 @@ if executable('ag')
 	let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 endif
 
-nnoremap <leader>o :FzfFiles<cr>
+nnoremap <leader>- :FzfFiles<cr>
 
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
@@ -211,10 +212,10 @@ inoremap <leader>8 <space>{<cr>}<Esc>ko
 nnoremap <leader>n :tabnew<cr>
 nnoremap <leader>q :tabc<cr>
 
-nnoremap <leader>t :vsplit <Bar> :terminal<cr>
+"nnoremap <leader>t :vsplit <Bar> :terminal<cr>
 
 " map away terminal!
-tnoremap <leader>w <c-\><c-n>
+"tnoremap <leader>w <c-\><c-n>
 
 " Grepper
 nnoremap <leader>f :silent execute "grep! " . shellescape(expand("<cword>")) . " *.*"<cr>:copen<cr>
@@ -224,17 +225,6 @@ if executable('ag')
 	set grepprg=ag\ --nogroup\ --nocolor
 	let g:ctrlp_user_command = 'ag %s -l -g ""'
 endif
-
-
-" MS Compiler Errors
-" Thanks to https://forums.handmadehero.org/index.php/forum?view=topic&catid=4&id=704#3982
-" error message formats
-" Microsoft MSBuild
-set errorformat+=\\\ %#%f(%l\\\,%c):\ %m
-" Microsoft compiler: cl.exe
-set errorformat+=\\\ %#%f(%l)\ :\ %#%t%[A-z]%#\ %m
-" Microsoft HLSL compiler: fxc.exe
-set errorformat+=\\\ %#%f(%l\\\,%c-%*[0-9]):\ %#%t%[A-z]%#\ %m
 
 " Common file settings
 augroup common_vimrc
@@ -291,13 +281,6 @@ augroup filetype_cpp
 	autocmd!
     au FileType cpp call SetFourTabNoExpandOptions()
 augroup end
-
-" racket file settings
-augroup filetype_racket
-	au!
-	au FileType racket call SetTwoTabExpandOptions()
-augroup end
-
 
 function SetPythonOptions()
     set tabstop=4
@@ -499,7 +482,6 @@ let g:conjure#client#scheme#stdio#command = "scheme"
 
 "" Not technically Conjure, but changed because of it
 :highlight NormalFloat ctermbg=black guibg=black
-
 
 
 " EXAMPLE STUFF {{{ "
