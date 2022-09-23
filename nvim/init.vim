@@ -1,9 +1,9 @@
 if has('unix')
-	if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-		silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
-			\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-		autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-	endif
+    if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+        silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+                    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    endif
 endif
 
 call plug#begin('$HOME/.nvim/plugged')
@@ -41,9 +41,10 @@ Plug 'iamcco/coc-vimlsp'
 
 call plug#end()
 
+" Required so that most themes don't fallback to 16 colors or be otherwise shitty!
+set termguicolors
 set background=dark
-"colorscheme PaperColor
-"colorscheme gotham
+colorscheme deep-space
 
 let $LANG = 'en'
 
@@ -75,7 +76,7 @@ highlight ExtraWhitespace ctermbg=darkgreen guibg=black
 "match ExtraWhitespace /^\t*\zs \+/
 
 if has('win32')
-	let &grepprg='findstr /n /s /p $*'
+    let &grepprg='findstr /n /s /p $*'
 endif
 
 
@@ -114,7 +115,7 @@ map <S-Q> <Plug>(easymotion-prefix)
 let g:fzf_command_prefix = 'Fzf'
 
 if executable('ag')
-	let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+    let $FZF_DEFAULT_COMMAND = 'ag --follow --ignore "*thirdparty*" -g ""'
 endif
 
 nnoremap <leader>- :FzfFiles<cr>
@@ -154,11 +155,11 @@ nnoremap <c-i> <c-]>
 
 " Use <C-N> to clear the highlighting of :set hlsearch.
 if maparg('<leader>l', 'n') ==# ''
-	nnoremap <silent> <leader>l :nohlsearch<cr>
+    nnoremap <silent> <leader>l :nohlsearch<cr>
 endif
 
 "Switch from header to cpp or vice versa
-nnoremap <F3> :e %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<cr>
+nnoremap <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<cr>
 
 "rust-vim
 " change cargo command shell
@@ -166,15 +167,15 @@ nnoremap <F3> :e %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<cr>
 
 
 function CheckProgram()
-	if &filetype ==# 'rust'
-		Cargo check
-	endif
+    if &filetype ==# 'rust'
+        Cargo check
+    endif
 endfunction
 
 function RunProgram()
-	if &filetype ==# 'rust'
-		Cargo run
-	endif
+    if &filetype ==# 'rust'
+        Cargo run
+    endif
 endfunction
 
 " I'm a genious!
@@ -183,7 +184,7 @@ nnoremap ö :
 nnoremap <F1> :vsplit $MYVIMRC<cr>
 
 nnoremap <F2> :RustFmt<cr>
-nnoremap <F4> :call CheckProgram()<cr>
+nnoremap <F3> :call CheckProgram()<cr>
 nnoremap <F5> :call RunProgram()<cr><cr>
 
 "Go to previous error
@@ -212,77 +213,53 @@ inoremap <leader>8 <space>{<cr>}<Esc>ko
 nnoremap <leader>n :tabnew<cr>
 nnoremap <leader>q :tabc<cr>
 
-"nnoremap <leader>t :vsplit <Bar> :terminal<cr>
-
-" map away terminal!
-"tnoremap <leader>w <c-\><c-n>
-
 " Grepper
 nnoremap <leader>f :silent execute "grep! " . shellescape(expand("<cword>")) . " *.*"<cr>:copen<cr>
 
 " Silver Searcher
 if executable('ag')
-	set grepprg=ag\ --nogroup\ --nocolor
-	let g:ctrlp_user_command = 'ag %s -l -g ""'
+    set grepprg=ag\ --nogroup\ --nocolor
+    let g:ctrlp_user_command = 'ag %s -l -g ""'
 endif
 
-" Common file settings
-augroup common_vimrc
-	autocmd!
-	" Set syntax folding
-	"autocmd BufReadPre * setlocal foldmethod=syntax
-	" Save and reload views
-	"autocmd BufWinLeave * mkview
-	"autocmd BufWinEnter * silent loadview
+augroup vimrc     " Source vim configuration upon save
+    autocmd! BufWritePost $MYVIMRC source % | echom "Reloaded " . $MYVIMRC | redraw
 augroup end
 
-" Vimscript file settings
-augroup filetype_vim
-	autocmd!
-	" Config autoreload
-	autocmd BufWritePost init.vim source $MYVIMRC
-augroup end
-
-" Terminal settings
-"augroup terminal_settings
-	"autocmd!
-	"autocmd TermOpen * startinsert
-"augroup end
-
-function SetFourTabNoExpandOptions()
-	set tabstop=4
-	set softtabstop=4
-	set shiftwidth=4
-	set noexpandtab
-	set autoindent
+function! SetFourTabNoExpandOptions()
+    set tabstop=4
+    set softtabstop=4
+    set shiftwidth=4
+    set noexpandtab
+    set autoindent
     set fileformat=unix
 endfunction
 
-function SetTwoTabNoExpandOptions()
-	set tabstop=4
-	set softtabstop=4
-	set shiftwidth=4
-	set noexpandtab
-	set autoindent
+function! SetTwoTabNoExpandOptions()
+    set tabstop=4
+    set softtabstop=4
+    set shiftwidth=4
+    set noexpandtab
+    set autoindent
     set fileformat=unix
 endfunction
 
-function SetTwoTabExpandOptions()
-	set tabstop=2
-	set softtabstop=2
-	set shiftwidth=2
-	set expandtab
-	set autoindent
+function! SetTwoTabExpandOptions()
+    set tabstop=2
+    set softtabstop=2
+    set shiftwidth=2
+    set expandtab
+    set autoindent
     set fileformat=unix
 endfunction
 
 " C/C++ file settings
 augroup filetype_cpp
-	autocmd!
+    autocmd!
     au FileType cpp call SetFourTabNoExpandOptions()
 augroup end
 
-function SetPythonOptions()
+function! SetPythonOptions()
     set tabstop=4
     set softtabstop=4
     set shiftwidth=4
@@ -294,14 +271,14 @@ endfunction
 " Python file settings
 augroup filetype_py
     au!
-	"" Python PEP 8 indentation
-	au FileType python call SetPythonOptions()
+    "" Python PEP 8 indentation
+    au FileType python call SetPythonOptions()
 augroup end
 
 " Rust things
 augroup filetype_rust
-	autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
-	autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
+    autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
+    autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
 augroup end
 
 augroup filetype_javascript
@@ -318,11 +295,11 @@ augroup end
 let treesitter = 1
 if treesitter
 
-lua <<EOF
-local languages = {"cpp", "c", "rust", "lua", "vim", "cmake", "bash", "python", "toml", "scheme"}
-require'nvim-treesitter.configs'.setup {
-	ensure_installed = languages,
-}
+    lua <<EOF
+    local languages = {"cpp", "c", "rust", "lua", "vim", "cmake", "bash", "python", "toml", "scheme"}
+    require'nvim-treesitter.configs'.setup {
+            ensure_installed = languages,
+        }
 EOF
 
 endif
@@ -344,26 +321,26 @@ set signcolumn=auto
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1):
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
+            \ coc#pum#visible() ? coc#pum#next(1):
+            \ CheckBackspace() ? "\<Tab>" :
+            \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice.
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+            \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use <c-space> to trigger completion.
 if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
+    inoremap <silent><expr> <c-space> coc#refresh()
 else
-  inoremap <silent><expr> <c-@> coc#refresh()
+    inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
 " Use `[g` and `]g` to navigate diagnostics
@@ -381,11 +358,11 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> K :call ShowDocumentation()<CR>
 
 function! ShowDocumentation()
-  if CocAction('hasProvider', 'hover')
-    call CocActionAsync('doHover')
-  else
-    call feedkeys('K', 'in')
-  endif
+    if CocAction('hasProvider', 'hover')
+        call CocActionAsync('doHover')
+    else
+        call feedkeys('K', 'in')
+    endif
 endfunction
 
 " Highlight the symbol and its references when holding the cursor.
@@ -399,11 +376,11 @@ xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    autocmd!
+    " Setup formatexpr specified filetype(s).
+    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    " Update signature help on jump placeholder.
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
 " Applying codeAction to the selected region.
@@ -432,12 +409,12 @@ omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
 if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+    nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+    inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+    inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+    vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
 " Use CTRL-S for selections ranges.
@@ -481,7 +458,7 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 let g:conjure#client#scheme#stdio#command = "scheme"
 
 "" Not technically Conjure, but changed because of it
-:highlight NormalFloat ctermbg=black guibg=black
+" highlight NormalFloat ctermbg=black guibg=black
 
 
 " EXAMPLE STUFF {{{ "
@@ -497,17 +474,17 @@ let g:conjure#client#scheme#stdio#command = "scheme"
 
 " Filetype stuff
 " Examples
-":autocmd FileType javascript :iabbrev <buffer> iff if: 
+":autocmd FileType javascript :iabbrev <buffer> iff if:
 ":autocmd FileType python     :iabbrev <buffer> iff if ()<left>
 
 "augroup filetype_cpp
-	"autocmd!
-	"autocmd FileType cpp thing_here
+"autocmd!
+"autocmd FileType cpp thing_here
 "augroup end
 
 "augroup testgroup
-	"autocmd! " clear
-	"autocmd BufWrite * :echom "Baz"
+"autocmd! " clear
+"autocmd BufWrite * :echom "Baz"
 "augroup end
 "
 " To use `ALT+{h,j,k,l}` to navigate windows from any mode: >
@@ -525,3 +502,6 @@ let g:conjure#client#scheme#stdio#command = "scheme"
 "nnoremap <A-l> <C-w>l
 
 "}}}
+
+set secure exrc
+
