@@ -38,7 +38,7 @@ Plug 'Olical/conjure'
 Plug 'bakpakin/fennel.vim'
 Plug 'schme/vim-paredit'
 Plug 'iamcco/coc-vimlsp'
-
+Plug 'rhysd/vim-clang-format'
 call plug#end()
 
 " Required so that most themes don't fallback to 16 colors or be otherwise shitty!
@@ -61,11 +61,9 @@ set shiftwidth=4		" Indentation amount for < and > commands.
 set nojoinspaces		" Prevents inserting two spaces after punctuation on a join (J)
 set number 				" Show the line numbers on the left side.
 set nowrap
-
 set ignorecase			" Make searching case insensitive
 set smartcase			" ... unless the query has capital letters.
 set smartindent
-
 set undofile
 
 highlight ExtraWhitespace ctermbg=darkgreen guibg=black
@@ -75,6 +73,10 @@ highlight ExtraWhitespace ctermbg=darkgreen guibg=black
 " Show spaces used for indenting
 "match ExtraWhitespace /^\t*\zs \+/
 
+" Ignore some files
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.obj,*.map,*.pdb,*.idb  " Windows
+set wildignore+=*\\build\\*,*.o,*.odp,*.pdf,*.odg,*.vcxproj*,*.odt,*.fbt,*.fbr,*.dll,*.lib
+
 if has('win32')
     let &grepprg='findstr /n /s /p $*'
 endif
@@ -82,11 +84,6 @@ endif
 
 " Tagbar
 nnoremap <c-q> :TagbarToggle<cr>
-
-" Ignore some files
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.obj,*.map,*.pdb,*.idb  " Windows
-set wildignore+=*\\build\\*,*.o,*.odp,*.pdf,*.odg,*.vcxproj*,*.odt,*.fbt,*.fbr,*.dll,*.lib
-
 " vim-airline
 " --------------------------------------
 let g:airline#extensions#tabline#enabled = 2
@@ -100,30 +97,25 @@ let g:airline_left_alt_sep = '|'
 let g:airline_right_sep = ' '
 let g:airline_right_alt_sep = '|'
 let g:airline_theme= 'minimalist'
-
 " Nerdtree
 nnoremap <c-e> :NERDTreeToggle<cr>
-
 " vim-markdown
 let g:vim_markdown_folding_disabled = 1
-
 "  vim-easymotion
 let g:EasyMotion_leader_key = '<S-Q>'
 map <S-Q> <Plug>(easymotion-prefix)
-
+" clang-format
+" Check FormatFile()
+nmap <Leader>C :ClangFormatAutoToggle<CR>
 " fzf
 let g:fzf_command_prefix = 'Fzf'
-
 if executable('ag')
     let $FZF_DEFAULT_COMMAND = 'ag --follow --ignore "*thirdparty*" -g ""'
 endif
-
 nnoremap <leader>- :FzfFiles<cr>
-
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
-
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
@@ -165,6 +157,15 @@ nnoremap <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<cr>
 " change cargo command shell
 " let g:cargo_shell_command_runner = '!'
 
+function FormatFile()
+    if &filetype ==# 'rust'
+        :RustFmt
+    elseif &filetype ==# 'cpp'
+        :ClangFormat
+    elseif &filetype ==# 'c'
+        :ClangFormat
+    endif
+endfunction
 
 function CheckProgram()
     if &filetype ==# 'rust'
@@ -182,39 +183,31 @@ endfunction
 nnoremap ö :
 
 nnoremap <F1> :vsplit $MYVIMRC<cr>
-
-nnoremap <F2> :RustFmt<cr>
+nnoremap <F2> :call FormatFile()<cr>
 nnoremap <F3> :call CheckProgram()<cr>
 nnoremap <F5> :call RunProgram()<cr><cr>
-
 "Go to previous error
 nnoremap <F6> :cp<cr>
 "Go to next error
 nnoremap <F7> :cn<cr>
 "Close quickfix
 nnoremap <F8> :ccl<cr>
-
+" Easy word replace
+nnoremap <F11> :%s/\<<C-r><C-w>\>/
 " Clear trailing whitespaces
 nnoremap <silent> <F9> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <cr>
 " Get ctags and dump tagfile in the current directory
 nnoremap <silent> <F10> :!ctags -R .<cr><cr>
-
 " Save
 "nnoremap <c-s> <esc>:wa<cr>
-
 " Since even split is so hard with nordic qwerty
 nnoremap <leader>0 <c-w>=
-" Easy word replace
-nnoremap <leader>s :%s/\<<C-r><C-w>\>/
 " Automatic bracket thing on demand
 inoremap <leader>7 <cr>{<cr>}<Esc>ko
 inoremap <leader>8 <space>{<cr>}<Esc>ko
 
 nnoremap <leader>n :tabnew<cr>
 nnoremap <leader>q :tabc<cr>
-
-" Grepper
-nnoremap <leader>f :silent execute "grep! " . shellescape(expand("<cword>")) . " *.*"<cr>:copen<cr>
 
 " Silver Searcher
 if executable('ag')
@@ -250,14 +243,7 @@ function! SetTwoTabExpandOptions()
     set shiftwidth=2
     set expandtab
     set autoindent
-    set fileformat=unix
 endfunction
-
-" C/C++ file settings
-augroup filetype_cpp
-    autocmd!
-    au FileType cpp call SetFourTabNoExpandOptions()
-augroup end
 
 function! SetPythonOptions()
     set tabstop=4
@@ -267,6 +253,12 @@ function! SetPythonOptions()
     set autoindent
     set fileformat=unix
 endfunction
+
+" C/C++ file settings
+augroup filetype_cpp
+    autocmd!
+    au FileType c,cpp call SetFourTabNoExpandOptions()
+augroup end
 
 " Python file settings
 augroup filetype_py
@@ -288,7 +280,7 @@ augroup end
 
 augroup filetype_css
     au!
-    au FileType css call SetTwoTabExpandOptions()
+    au FileType css,scss call SetTwoTabExpandOptions()
 augroup end
 
 " TreeSitter
