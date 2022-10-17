@@ -113,6 +113,7 @@ if executable('ag')
     let $FZF_DEFAULT_COMMAND = 'ag --follow --ignore "*thirdparty*" -g ""'
 endif
 nnoremap <leader>- :FzfFiles<cr>
+nnoremap <leader>. :FzfAg<cr>
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
@@ -182,7 +183,6 @@ endfunction
 " I'm a genious!
 nnoremap ö :
 
-nnoremap <F1> :vsplit $MYVIMRC<cr>
 nnoremap <F2> :call FormatFile()<cr>
 nnoremap <F3> :call CheckProgram()<cr>
 nnoremap <F5> :call RunProgram()<cr><cr>
@@ -192,12 +192,13 @@ nnoremap <F6> :cp<cr>
 nnoremap <F7> :cn<cr>
 "Close quickfix
 nnoremap <F8> :ccl<cr>
-" Easy word replace
-nnoremap <F11> :%s/\<<C-r><C-w>\>/
 " Clear trailing whitespaces
 nnoremap <silent> <F9> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <cr>
 " Get ctags and dump tagfile in the current directory
 nnoremap <silent> <F10> :!ctags -R .<cr><cr>
+" Easy word replace
+nnoremap <F11> :%s/\<<C-r><C-w>\>/
+nnoremap <F12> :vsplit $MYVIMRC<cr>
 " Save
 "nnoremap <c-s> <esc>:wa<cr>
 " Since even split is so hard with nordic qwerty
@@ -207,12 +208,11 @@ inoremap <leader>7 <cr>{<cr>}<Esc>ko
 inoremap <leader>8 <space>{<cr>}<Esc>ko
 
 nnoremap <leader>n :tabnew<cr>
-nnoremap <leader>q :tabc<cr>
+nnoremap <leader>qt :tabc<cr>
 
 " Silver Searcher
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
-    let g:ctrlp_user_command = 'ag %s -l -g ""'
 endif
 
 augroup vimrc     " Source vim configuration upon save
