@@ -178,6 +178,9 @@ function RunProgram()
     if &filetype ==# 'rust'
         Cargo run
     endif
+    if &filetype ==# 'gdscript'
+        :GodotRun
+    endif
 endfunction
 
 " I'm a genious!
@@ -195,9 +198,9 @@ nnoremap <F8> :ccl<cr>
 " Clear trailing whitespaces
 nnoremap <silent> <F9> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <cr>
 " Get ctags and dump tagfile in the current directory
-nnoremap <silent> <F10> :!ctags -R .<cr><cr>
+"nnoremap <silent> <F10> :!ctags -R .<cr><cr>
 " Easy word replace
-nnoremap <F11> :%s/\<<C-r><C-w>\>/
+nnoremap <F10> :%s/\<<C-r><C-w>\>/
 nnoremap <F12> :vsplit $MYVIMRC<cr>
 " Save
 "nnoremap <c-s> <esc>:wa<cr>
@@ -282,6 +285,9 @@ augroup filetype_css
     au!
     au FileType css,scss call SetTwoTabExpandOptions()
 augroup end
+
+" Use racket type for zuo files atm
+au BufRead,BufNewFile *.zuo                set filetype=racket
 
 " TreeSitter
 let treesitter = 1
