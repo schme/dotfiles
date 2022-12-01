@@ -7,11 +7,11 @@ if has('unix')
 endif
 
 call plug#begin('$HOME/.nvim/plugged')
+Plug 'Olical/conjure'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'bakpakin/fennel.vim'
 Plug 'beyondmarc/glsl.vim'
-Plug 'cespare/vim-toml'
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'easymotion/vim-easymotion'
 Plug 'habamax/vim-godot'
 Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -22,9 +22,12 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'peterhoeg/vim-qml'
 Plug 'plasticboy/vim-markdown'
+Plug 'rafcamlet/coc-nvim-lua'
 Plug 'rafi/awesome-vim-colorschemes'
+Plug 'rhysd/vim-clang-format'
 Plug 'ron-rs/ron.vim'
 Plug 'rust-lang/rust.vim'
+Plug 'schme/vim-paredit'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
@@ -34,19 +37,12 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'wlangstroth/vim-racket'
-Plug 'Olical/conjure'
-Plug 'bakpakin/fennel.vim'
-Plug 'schme/vim-paredit'
-Plug 'iamcco/coc-vimlsp'
-Plug 'rhysd/vim-clang-format'
 call plug#end()
 
 " Required so that most themes don't fallback to 16 colors or be otherwise shitty!
 set termguicolors
 set background=dark
 colorscheme deep-space
-
-let $LANG = 'en'
 
 "set colorcolumn=120,200
 "highlight ColorColumn guibg=grey
@@ -61,10 +57,9 @@ set shiftwidth=4		" Indentation amount for < and > commands.
 set nojoinspaces		" Prevents inserting two spaces after punctuation on a join (J)
 set number 				" Show the line numbers on the left side.
 set nowrap
-set ignorecase			" Make searching case insensitive
-set smartcase			" ... unless the query has capital letters.
 set smartindent
 set undofile
+set laststatus=3
 
 highlight ExtraWhitespace ctermbg=darkgreen guibg=black
 
@@ -101,9 +96,7 @@ let g:airline_theme= 'minimalist'
 nnoremap <c-e> :NERDTreeToggle<cr>
 " vim-markdown
 let g:vim_markdown_folding_disabled = 1
-"  vim-easymotion
-let g:EasyMotion_leader_key = '<S-Q>'
-map <S-Q> <Plug>(easymotion-prefix)
+
 " clang-format
 " Check FormatFile()
 nmap <Leader>C :ClangFormatAutoToggle<CR>
@@ -297,6 +290,10 @@ if treesitter
     local languages = {"cpp", "c", "rust", "lua", "vim", "cmake", "bash", "python", "toml", "scheme"}
     require'nvim-treesitter.configs'.setup {
             ensure_installed = languages,
+            sync_install = false,
+            highlight = {
+                enable = true
+            },
         }
 EOF
 
