@@ -149,7 +149,7 @@ if maparg('<leader>l', 'n') ==# ''
 endif
 
 "Switch from header to cpp or vice versa
-nnoremap <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<cr>
+nnoremap <F4> :e %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<cr>
 
 "rust-vim
 " change cargo command shell
@@ -260,6 +260,11 @@ function! RacketOptions()
     setlocal formatprg=raco\ fmt
 endfunction
 
+function! MarkdownOptions()
+    call SetTwoTabExpandOptions()
+    set wrap linebreak textwidth=0
+endfunction
+
 " C/C++ file settings
 augroup filetype_cpp
     autocmd!
@@ -296,7 +301,7 @@ augroup end
 
 augroup filetype_md
     au!
-    au FileType markdown call SetTwoTabExpandOptions()
+    au FileType markdown call MarkdownOptions()
 augroup end
 
 " Use racket type for zuo files atm
@@ -471,12 +476,11 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 " Conjure
 let g:conjure#client#scheme#stdio#command = "scheme"
-
 "" Not technically Conjure, but changed because of it
 " highlight NormalFloat ctermbg=black guibg=black
 
-imap <expr> <C-Tab> snippy#can_expand_or_advance() ? '<Plug>(snippy-expand-or-advance)' : '<Tab>'
-imap <expr> <C-S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
-smap <expr> <C-Tab> snippy#can_jump(1) ? '<Plug>(snippy-next)' : '<Tab>'
-smap <expr> <C-S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
+imap <expr> <C-Tab> snippy#can_expand_or_advance() ? '<Plug>(snippy-expand-or-advance)' : '<C-Tab>'
+imap <expr> <C-S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<C-S-Tab>'
+smap <expr> <C-Tab> snippy#can_jump(1) ? '<Plug>(snippy-next)' : '<C-Tab>'
+smap <expr> <C-S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<C-S-Tab>'
 xmap <C-Tab> <Plug>(snippy-cut-text)
