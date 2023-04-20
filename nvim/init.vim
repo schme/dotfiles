@@ -11,9 +11,9 @@ Plug 'Olical/conjure'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'bakpakin/fennel.vim'
 Plug 'beyondmarc/glsl.vim'
-Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'habamax/vim-godot'
-Plug 'honza/vim-snippets'
+Plug 'honza/vim-snippets' " needs a snippet engine to function
+Plug 'dcampos/nvim-snippy'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'majutsushi/tagbar'
@@ -25,18 +25,17 @@ Plug 'plasticboy/vim-markdown'
 Plug 'rafcamlet/coc-nvim-lua'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'rhysd/vim-clang-format'
-Plug 'ron-rs/ron.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'schme/vim-paredit'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-liquid'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'wlangstroth/vim-racket'
+Plug 'tom-doerr/vim_codex'
 call plug#end()
 
 " Required so that most themes don't fallback to 16 colors or be otherwise shitty!
@@ -57,9 +56,14 @@ set shiftwidth=4		" Indentation amount for < and > commands.
 set nojoinspaces		" Prevents inserting two spaces after punctuation on a join (J)
 set number 				" Show the line numbers on the left side.
 set nowrap
+set ignorecase
+set smartcase
 set smartindent
 set undofile
 set laststatus=3
+set textwidth=100
+set secure
+set exrc
 
 highlight ExtraWhitespace ctermbg=darkgreen guibg=black
 
@@ -145,7 +149,7 @@ if maparg('<leader>l', 'n') ==# ''
 endif
 
 "Switch from header to cpp or vice versa
-nnoremap <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<cr>
+nnoremap <F4> :e %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<cr>
 
 "rust-vim
 " change cargo command shell
@@ -158,6 +162,8 @@ function FormatFile()
         :ClangFormat
     elseif &filetype ==# 'c'
         :ClangFormat
+    else
+        " todo: gq command
     endif
 endfunction
 
@@ -200,8 +206,8 @@ nnoremap <F12> :vsplit $MYVIMRC<cr>
 " Since even split is so hard with nordic qwerty
 nnoremap <leader>0 <c-w>=
 " Automatic bracket thing on demand
-inoremap <leader>7 <cr>{<cr>}<Esc>ko
-inoremap <leader>8 <space>{<cr>}<Esc>ko
+"inoremap <leader>7 <cr>{<cr>}<Esc>ko
+"inoremap <leader>8 <space>{<cr>}<Esc>ko
 
 nnoremap <leader>n :tabnew<cr>
 nnoremap <leader>qt :tabc<cr>
@@ -250,10 +256,19 @@ function! SetPythonOptions()
     set fileformat=unix
 endfunction
 
+function! RacketOptions()
+    setlocal formatprg=raco\ fmt
+endfunction
+
+function! MarkdownOptions()
+    call SetTwoTabExpandOptions()
+    set wrap linebreak textwidth=0
+endfunction
+
 " C/C++ file settings
 augroup filetype_cpp
     autocmd!
-    au FileType c,cpp call SetFourTabNoExpandOptions()
+    au FileType cpp call SetFourTabNoExpandOptions()
 augroup end
 
 " Python file settings
@@ -277,6 +292,16 @@ augroup end
 augroup filetype_css
     au!
     au FileType css,scss call SetTwoTabExpandOptions()
+augroup end
+
+augroup filetype_racket
+    au!
+    au FileType racket call RacketOptions()
+augroup end
+
+augroup filetype_md
+    au!
+    au FileType markdown call MarkdownOptions()
 augroup end
 
 " Use racket type for zuo files atm
@@ -451,52 +476,11 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 " Conjure
 let g:conjure#client#scheme#stdio#command = "scheme"
-
 "" Not technically Conjure, but changed because of it
 " highlight NormalFloat ctermbg=black guibg=black
 
-
-" EXAMPLE STUFF {{{ "
-" ----------------------------------------------------------"
-
-" Operator bindings
-"onoremap b /return<cr>
-"onoremap p i(
-":onoremap in( :<c-u>normal! f(vi(<cr>
-
-" Abbreviations
-"iabbrev ssig -- <cr>Kasper Sauramo<cr>mail@kaspersauramo.me
-
-" Filetype stuff
-" Examples
-":autocmd FileType javascript :iabbrev <buffer> iff if:
-":autocmd FileType python     :iabbrev <buffer> iff if ()<left>
-
-"augroup filetype_cpp
-"autocmd!
-"autocmd FileType cpp thing_here
-"augroup end
-
-"augroup testgroup
-"autocmd! " clear
-"autocmd BufWrite * :echom "Baz"
-"augroup end
-"
-" To use `ALT+{h,j,k,l}` to navigate windows from any mode: >
-"tnoremap <A-h> <C-\><C-N><C-w>h
-"tnoremap <A-j> <C-\><C-N><C-w>j
-"tnoremap <A-k> <C-\><C-N><C-w>k
-"tnoremap <A-l> <C-\><C-N><C-w>l
-"inoremap <A-h> <C-\><C-N><C-w>h
-"inoremap <A-j> <C-\><C-N><C-w>j
-"inoremap <A-k> <C-\><C-N><C-w>k
-"inoremap <A-l> <C-\><C-N><C-w>l
-"nnoremap <A-h> <C-w>h
-"nnoremap <A-j> <C-w>j
-"nnoremap <A-k> <C-w>k
-"nnoremap <A-l> <C-w>l
-
-"}}}
-
-set secure exrc
-
+imap <expr> <C-Tab> snippy#can_expand_or_advance() ? '<Plug>(snippy-expand-or-advance)' : '<C-Tab>'
+imap <expr> <C-S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<C-S-Tab>'
+smap <expr> <C-Tab> snippy#can_jump(1) ? '<Plug>(snippy-next)' : '<C-Tab>'
+smap <expr> <C-S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<C-S-Tab>'
+xmap <C-Tab> <Plug>(snippy-cut-text)

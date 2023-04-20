@@ -38,3 +38,7 @@ ln -si $(pwd)/rofi/config.rasi ~/.config/rofi/config.rasi
 # mkdir -p ~/.config/polybar/
 # ln -si $(pwd)/polybar/config.ini ~/.config/polybar/config.ini
 
+# helix
+mkdir -p ~/.config/helix
+ln -si $(pwd)/helix/config.toml ~/.config/helix/config.toml
+ln -si $(pwd)/helix/languages.toml ~/.config/helix/languages.toml

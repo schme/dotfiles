@@ -1,0 +1,10 @@
+[Unit]
+Description=Prepare system for real-time audio
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash ~/.local/bin/rt-audio-setup
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
