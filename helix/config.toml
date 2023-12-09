@@ -1,1 +1,13 @@
-theme = "rose_pine_moon"
+theme = "tokyonight"
+
+[editor]
+idle-timeout = 200
+true-color = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[keys.insert.k]
+j = "normal_mode"

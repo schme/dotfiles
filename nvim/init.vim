@@ -41,8 +41,7 @@ call plug#end()
 " Required so that most themes don't fallback to 16 colors or be otherwise shitty!
 set termguicolors
 set background=dark
-colorscheme deep-space
-
+colorscheme alduin
 "set colorcolumn=120,200
 "highlight ColorColumn guibg=grey
 
@@ -109,8 +108,8 @@ let g:fzf_command_prefix = 'Fzf'
 if executable('ag')
     let $FZF_DEFAULT_COMMAND = 'ag --follow --ignore "*thirdparty*" -g ""'
 endif
-nnoremap <leader>- :FzfFiles<cr>
-nnoremap <leader>. :FzfAg<cr>
+nnoremap <leader>f :FzfFiles<cr>
+nnoremap <leader>/ :FzfAg<cr>
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
