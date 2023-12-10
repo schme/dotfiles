@@ -15,7 +15,6 @@ font pango:DejaVu Sans Mono 12
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
-exec --no-startup-id wal -R
 exec --no-startup-id picom
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
@@ -335,6 +334,8 @@ bar {
         binding_mode       #2F343A #900000 $foreground
     }
 }
+
+exec --no-startup-id wal -i ~/Pictures/wallpaper.png
 
 ###############
 # UNUSED STUFF

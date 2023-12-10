@@ -1,6 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=$HOME/bin:/usr/local/bin:$PATH:/usr/sbin
+export PATH=$HOME/.local/bin:$HOME/bin:/usr/local/bin:$PATH:/usr/sbin
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -86,7 +86,7 @@ source $ZSH/oh-my-zsh.sh
 (cat ~/.cache/wal/sequences &)
 
 # Alternative (blocks terminal for 0-3ms)
-cat ~/.cache/wal/sequences
+# cat ~/.cache/wal/sequences
 
 # To add support for TTYs this line can be optionally added.
 source ~/.cache/wal/colors-tty.sh
@@ -100,7 +100,7 @@ source ~/.cache/wal/colors-tty.sh
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
-  export EDITOR='nvim'
+  export EDITOR='hx'
 fi
 
 # Compilation flags
@@ -116,5 +116,6 @@ alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias ,search-name="apt search --names-only"
+alias sshwork="ssh kasper@10.22.0.221"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

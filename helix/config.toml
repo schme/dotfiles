@@ -1,1 +1,4 @@
 theme = "rose_pine_moon"
+
+[keys.insert.k]
+j = "normal_mode"
