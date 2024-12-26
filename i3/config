@@ -300,7 +300,7 @@ mode "$mode_gaps_left" {
 
 # finds out, if available)
 bar {
-    status_command i3status --config ~/.config/i3status/conf
+    status_command ~/progs/i3status.sh
     colors {
 
         set_from_resource $foreground i3wm.foreground
@@ -339,6 +339,9 @@ exec_always --no-startup-id wal -i $HOME/Pictures/wallpaper.png
 # exec_always --no-startup-id feh --bg $HOME/Pictures/wallpaper.png
 
 # i3bar_command i3bar -t
+
+## Keyboard layout
+exec setxkbmap -option grp:alt_space_toggle fi,us -variant ,colemak
 
 ###############
 # UNUSED STUFF

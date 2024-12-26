@@ -5,3 +5,8 @@ args = [ "127.0.0.1", "6005"]
 [[language]]
 name = "gdscript"
 language-servers = ["gdscript"]
+
+[[language]]
+name = "racket"
+auto-format = true
+formatter = { command = "raco", args = ["fmt"] }
