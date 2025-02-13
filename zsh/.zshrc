@@ -119,6 +119,9 @@ alias ,search-name="apt search --names-only"
 
 alias ,pahvi="rsync -Pahvi"
 
+alias emacs="emacs -nw"
+alias em="emacs -nw"
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 . "$HOME/.cargo/env"
 
