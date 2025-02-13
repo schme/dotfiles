@@ -12,7 +12,3 @@
  ;; If there is more than one, they won't work right.
  )
 
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/"))
-(package-initialize)
