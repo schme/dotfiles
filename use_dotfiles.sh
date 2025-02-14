@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 
+script_dir=dirname "$0"
+
 # Neovim
 mkdir -p ~/.config/nvim/
 ln -si $(pwd)/nvim/init.vim ~/.config/nvim/init.vim
-
-# Zsh
-ln -si $(pwd)/zsh/.zshrc ~/.zshrc
-
+ 
 # Xresources
 ln -si $(pwd)/Xresources/.Xresources ~/.Xresources
 

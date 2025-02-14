@@ -115,7 +115,7 @@ fi
 alias zshconfig="hx ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias ,search-name="apt search --names-only"
+alias ,asn="apt search --names-only"
 
 alias ,pahvi="rsync -Pahvi"
 
