@@ -115,7 +115,12 @@ fi
 alias zshconfig="hx ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias ,apu="sudo apt update"
+alias ,apg="sudo apt upgrade"
+alias ,apug="sudo apt update && sudo apt upgrade"
+alias ,as="apt search"
 alias ,asn="apt search --names-only"
+alias ,ai="sudo apt install"
 
 alias ,pahvi="rsync -Pahvi"
 
