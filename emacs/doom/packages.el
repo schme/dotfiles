@@ -49,3 +49,4 @@
 ;; (unpin! t)
 
 (package! fzf)
+(package! ag)
