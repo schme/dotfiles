@@ -123,6 +123,7 @@ alias ,asn="apt search --names-only"
 alias ,ai="sudo apt install"
 
 alias ,pahvi="rsync -Pahvi"
+alias protontricks="flatpak run com.github.Matoking.protontricks"
 
 alias emacs="emacs -nw"
 alias em="emacs -nw"
