@@ -1,4 +1,4 @@
-@theme "~/.cache/wal/colors-rofi-light.rasi"
+//@theme "~/.cache/wal/colors-rofi-light.rasi"
 /*@theme "~/.cache/wal/colors-rofi-dark.rasi"*/
 
 configuration {
@@ -148,3 +148,4 @@ configuration {
       sorting-method:    "name";
   }
 }
+@theme "/usr/share/rofi/themes/DarkBlue.rasi"

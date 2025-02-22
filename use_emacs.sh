@@ -14,3 +14,5 @@ rm -rf ~/.config/doom
 ln -si "$(pwd)/emacs/doom" ~/.config/
 
 doom sync
+
+systemctl --user enable emacs

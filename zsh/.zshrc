@@ -100,7 +100,7 @@ source $ZSH/oh-my-zsh.sh
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
-  export EDITOR='hx'
+  export EDITOR='emacsclient'
 fi
 
 # Compilation flags
@@ -125,8 +125,8 @@ alias ,ai="sudo apt install"
 alias ,pahvi="rsync -Pahvi"
 alias protontricks="flatpak run com.github.Matoking.protontricks"
 
-alias sem="sudo emacs -nw"
-alias em="emacs -nw"
+alias sem="sudo emacslient"
+alias em="emacsclient -nw"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 . "$HOME/.cargo/env"
