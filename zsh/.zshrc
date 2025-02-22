@@ -125,7 +125,7 @@ alias ,ai="sudo apt install"
 alias ,pahvi="rsync -Pahvi"
 alias protontricks="flatpak run com.github.Matoking.protontricks"
 
-alias emacs="emacs -nw"
+alias sem="sudo emacs -nw"
 alias em="emacs -nw"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
