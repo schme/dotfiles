@@ -126,7 +126,7 @@ alias ,pahvi="rsync -Pahvi"
 alias protontricks="flatpak run com.github.Matoking.protontricks"
 
 alias sem="sudo emacslient"
-alias em="emacsclient -nw"
+alias em="emacsclient"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 . "$HOME/.cargo/env"
