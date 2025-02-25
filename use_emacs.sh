@@ -7,6 +7,9 @@ sudo apt install fd-find
 sudo apt install markdown
 sudo apt install shellcheck
 
+rm -rf .emacs
+rm -rf .emacs.d/
+
 git clone --depth 1 --single-branch https://github.com/doomemacs/doomemacs ~/.config/emacs
 ~/.config/emacs/bin/doom install
 
