@@ -123,6 +123,7 @@ alias ,asn="apt search --names-only"
 alias ,ai="sudo apt install"
 
 alias ,pahvi="rsync -Pahvi"
+alias ,sagent="eval $(ssh-agent)"
 alias protontricks="flatpak run com.github.Matoking.protontricks"
 
 alias sem="sudo emacslient"
