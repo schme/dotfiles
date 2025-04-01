@@ -14,7 +14,7 @@ def create_name_from_word_list(device_list_words: list) -> str:
     return None
 
 
-def get_wacom_device(device_type: str ="PAD"):
+def get_wacom_device(device_type: str ="STYLUS"):
     """
     Finds the Wacom device with the specified type (e.g., "Pad").
     """
@@ -82,13 +82,13 @@ def map_tablet_to_area(device_name, width, height, x_offset, y_offset):
     area = f"{width}x{height}+{x_offset}+{y_offset}"
     try:
         subprocess.run(["xsetwacom", "set", device_name, "MapToOutput", area], check=True)
-        print(f"Mapped {device_name} to area: {area}")
+        print(f"Mapped '{device_name}' to area: {area}")
     except subprocess.CalledProcessError as e:
         print(f"Error mapping tablet: {e}")
 
 def main():
     # Step 1: Find the Wacom device with type "Pad"
-    device_name = get_wacom_device("PAD")
+    device_name = get_wacom_device("STYLUS")
     if not device_name:
         print("No Wacom device with type 'Pad' found.")
         return
