@@ -54,7 +54,7 @@ def get_monitor_resolution():
         print(f"Error getting monitor resolution: {e}")
     return None, None
 
-def calculate_centered_area(monitor_width, monitor_height, tablet_aspect_ratio=(16, 9)):
+def calculate_centered_area(monitor_width, monitor_height, tablet_aspect_ratio=(16, 10)):
     """
     Calculates the centered area on the monitor that matches the tablet's aspect ratio.
     Returns (width, height, x_offset, y_offset).
@@ -100,7 +100,7 @@ def main():
         return
 
     # Step 3: Assume a 16:9 aspect ratio for the tablet and calculate the centered area
-    tablet_aspect_ratio = (16, 9)
+    tablet_aspect_ratio = (16, 10)
     target_width, target_height, x_offset, y_offset = calculate_centered_area(
         monitor_width, monitor_height, tablet_aspect_ratio
     )
