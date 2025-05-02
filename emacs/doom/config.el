@@ -32,7 +32,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-pine)
+(setq doom-theme 'doom-tokyo-night)
 
 (setq doom-font (font-spec :family "Hack"))
 
@@ -77,12 +77,17 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; Start emacs daemon if it isn't already running
 (after! server
   (unless (server-running-p)
     (server-start)))
 
+;; Compile command to run from project root
 (map! :leader
       :desc "Project compile" "c c" #'project-compile)
+
+;; Custom templates
+(set-file-template! "\\.h\\'" :trigger "header.h")
 
 ;; (after! treemacs
 ;;   (map! :map global-map
