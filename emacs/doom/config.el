@@ -89,6 +89,15 @@
 ;; Custom templates
 (set-file-template! "\\.h\\'" :trigger "header.h")
 
+(after! flycheck
+  ;; Chain another checker after LSP
+  ;; (flycheck-add-next-checker 'lsp 'c/c++-clang-tidy)
+  (setq my/debug-loaded t)
+  (flycheck-add-next-checker 'lsp 'c/c++-cppcheck))
+
+;; Optionally, chain both
+;; (flycheck-add-next-checker 'c/c++-clang-tidy 'c/c++-cppcheck))
+
 ;; (after! treemacs
 ;;   (map! :map global-map
 ;;         "M-0" treemacs-select-window))
