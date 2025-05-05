@@ -92,7 +92,6 @@
 (after! flycheck
   ;; Chain another checker after LSP
   ;; (flycheck-add-next-checker 'lsp 'c/c++-clang-tidy)
-  (setq my/debug-loaded t)
   (flycheck-add-next-checker 'lsp 'c/c++-cppcheck))
 
 ;; Optionally, chain both
