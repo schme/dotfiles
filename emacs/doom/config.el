@@ -89,10 +89,13 @@
 ;; Custom templates
 (set-file-template! "\\.h\\'" :trigger "header.h")
 
-(after! flycheck
-  ;; Chain another checker after LSP
-  ;; (flycheck-add-next-checker 'lsp 'c/c++-clang-tidy)
-  (flycheck-add-next-checker 'lsp 'c/c++-cppcheck))
+;; Just can't get this to work at the moment.
+;; Probably need to go deeper into Emacs to figure this out.
+;; (after! flycheck
+;;   ;; Chain another checker after LSP
+;;   ;; (flycheck-add-next-checker 'lsp 'c/c++-clang-tidy)
+;;   ;; (flycheck-add-next-checker 'lsp 'c/c++-cppcheck))
+;;   )
 
 ;; Optionally, chain both
 ;; (flycheck-add-next-checker 'c/c++-clang-tidy 'c/c++-cppcheck))
