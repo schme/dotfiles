@@ -90,8 +90,19 @@
 (map! :leader
       :desc "Project compile" "c c" #'project-compile)
 
+(use-package! obsidian
+  :defer t
+  :init
+  (setq obsidian-directory "~/World/"
+        obsidian-inbox-directory "0A.Inbox")
+  :config
+  (global-obsidian-mode t)
+  (obsidian-backlinks-mode t))
+
+
 ;; Custom templates
 (set-file-template! "\\.h\\'" :trigger "header.h")
+
 
 ;; Just can't get this to work at the moment.
 ;; Probably need to go deeper into Emacs to figure this out.

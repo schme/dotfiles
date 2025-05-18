@@ -50,3 +50,5 @@
 
 (package! fzf)
 (package! ag)
+
+(package! obsidian)
