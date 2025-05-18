@@ -40,6 +40,10 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
+;; Do not highlight region between mark and point. I feel this lends better
+;; ergonomy for jumping around.
+(setq transient-mark-mode t)
+
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
